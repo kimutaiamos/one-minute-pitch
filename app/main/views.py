@@ -90,4 +90,39 @@ def update_pic(uname):
     return redirect(url_for('main.profile',uname=uname))
 
 
+
+@login_required
+def comment(id):
+    '''
+    function to return the comments
+    '''
+    comm =Comments.get_comment(id)
+    print(comm)
+    title = 'comments'
+    return render_template('comments.html',comment = comm,title = title)
+
+
+
+
+
+@main.route('/new_comment/<int:pitches_id>', methods = ['GET', 'POST'])
+@login_required
+def new_comment(pitches_id):
+    pitches =pitches.query.filter_by(id = pitches_id).first()
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        comment = form.comment.data
+
+        new_comment = Comments(comment=comment,user_id=current_user.id, pitches_id=pitches_id)
+
+
+        new_comment.save_comment()
+
+
+        return redirect(url_for('main.index'))
+    title='New Pitch'
+    return render_template('new_comment.html',title=title,comment_form = form,pitches_id=pitches_id)
+
+
     
