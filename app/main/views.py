@@ -29,7 +29,7 @@ def new_pitch():
         pitch = form.pitch.data
         comment = form.comment.data
 
-        new_pitch = pitches(title = title,category =category,pitch = pitch,user_id=current_user_id)
+        new_pitch = pitches(title = Title,category =category,pitch = pitch,user_id=current_user_id)
         title = 'New pitch'
         new_pitch.save_pitch()
 
@@ -108,7 +108,7 @@ def comment(id):
 @main.route('/new_comment/<int:pitches_id>', methods = ['GET', 'POST'])
 @login_required
 def new_comment(pitches_id):
-    pitches =pitches.query.filter_by(id = pitches_id).first()
+    pitche =pitches.query.filter_by(id = pitches_id).first()
     form = CommentForm()
 
     if form.validate_on_submit():
