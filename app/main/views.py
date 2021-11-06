@@ -1,5 +1,6 @@
 from flask import render_template,redirect,url_for
 from werkzeug.exceptions import abort
+from werkzeug.wrappers import request
 from wtforms.i18n import messages_path
 from .import main
 from..import db,photos
@@ -53,6 +54,40 @@ def profile(uname):
         abort(404)
 
     return render_template("profile/profile.html", user = user)
+
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(author = uname).first()
+    if user is None:
+        abort(404)
+
+    form = Updateprofile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.author))
+
+    return render_template('profile/update.html',form =form)
+
+
+
+
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(author = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
 
 
     
