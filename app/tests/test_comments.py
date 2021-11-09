@@ -1,6 +1,8 @@
 from app.main.views import comment
 from app.models import Commnet,User
 from app import db
+from werkzeug import secure_filename,FileStorage
+
 
 
 def setUp(self):

@@ -5,8 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
-
-
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
+from flask_script import Manager
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 
@@ -24,12 +25,8 @@ def create_app(config_name):
 
     mail.init_app(app)
     
-    # simple.init_app(app)
-    
-    # Creating the app configurations
     app.config.from_object(config_options[config_name])
 
-    # Initializing flask extensions
     bootstrap.init_app(app)
     db.init_app(app)
 
@@ -38,10 +35,6 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
     # Will add the views and forms
-
-    # setting config
-    # from .request import configure_request
-    # configure_request(app)
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint,url_prefix = '/authenticate')
