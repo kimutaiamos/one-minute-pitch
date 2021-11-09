@@ -1,5 +1,5 @@
 ## pitches
-developed by sir amos kimutai on 4 th November 2021
+developed by sir amos kimutai on 5th November 2021
 ## Desciptions
 This is a pitch application or website that allows a user to view pitches in any category shown. Also, a user can comment on a pitch in any category for the pitch a user likes and user can also create a pitch for any category they want to generate.
 
