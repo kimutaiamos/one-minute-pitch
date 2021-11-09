@@ -6,7 +6,7 @@ This is a pitch application or website that allows a user to view pitches in any
 ## users interface
 users get get various choices on what they want to pitch about and on acccess they can pitch also comments and vote for various pitches.
 ## To view the live site:
-
+http://pitches8.herokuapp.com/
 
 
 ## Technologies used
